@@ -2,6 +2,7 @@
 {
     internal class Bar
     {
-        // add here some other properties
+        public int Id { get; set; }
+        public string NumberInString { get; set; }
     }
 }

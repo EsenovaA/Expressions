@@ -11,10 +11,24 @@ namespace ExpressionTrees.Task2.ExpressionMapping.Tests
         [TestMethod]
         public void TestMethod1()
         {
-            var mapGenerator = new MappingGenerator();
-            var mapper = mapGenerator.Generate<Foo, Bar>();
+            var mapGenerator = new MappingGenerator<Foo, Bar>(x =>
+                // Mapping setup for different fields 
+                new Bar
+                {
+                    NumberInString = x.Number.ToString()
+                }
+            );
+            var mapper = mapGenerator.Generate();
 
-            var res = mapper.Map(new Foo());
+            var res = mapper.Map(new Foo
+            {
+                Id = 1,
+                Number = 100
+            });
+
+            Assert.IsNotNull(res);
+            Assert.AreEqual(1, res.Id);
+            Assert.AreEqual(100.ToString(), res.NumberInString);
         }
     }
 }
